@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠物世界</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e74c3c;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #3498db;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav li {
+            margin-left: 30px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #e74c3c;
+        }
+
+        .user-links {
+            font-size: 14px;
+        }
+
+        .user-links a {
+            text-decoration: none;
+            color: #666;
+            margin-left: 15px;
+        }
+
+        .user-links a:hover {
+            color: #e74c3c;
+        }
+
+        .slider {
+            max-width: 1200px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-item {
+            min-width: 100%;
+            height: 400px;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.3);
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        .pets-section {
+            background-color: #f5f5f5;
+            padding: 40px 0;
+        }
+
+        .pets-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .pet-card {
+            width: 22%;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pet-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .pet-card p {
+            padding: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer {
+            background-color: #666;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #ccc;
+            margin: 0 10px;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer p {
+            font-size: 12px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .pet-card {
+                width: 45%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">宠物<span>世界</span></a>
+            <ul class="nav">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">宠物</a></li>
+                <li><a href="#">关于宠物</a></li>
+                <li><a href="#">宠物萌宠</a></li>
+                <li><a href="#">宠物趣闻</a></li>
+                <li><a href="#">宠物日常</a></li>
+                <li><a href="#">联系我们</a></li>
+            </ul>
+            <div class="user-links">
+                <a href="#">登录</a>
+                <span>|</span>
+                <a href="#">注册</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="slider">
+        <div class="slider-container" id="sliderContainer">
+            <div class="slider-item">
+                <img src="宠物世界网站素材/img/p1.jpg" alt="宠物图片1">
+            </div>
+            <div class="slider-item">
+                <img src="宠物世界网站素材/img/p2.jpg" alt="宠物图片2">
+            </div>
+            <div class="slider-item">
+                <img src="宠物世界网站素材/img/p3.jpg" alt="宠物图片3">
+            </div>
+            <div class="slider-item">
+                <img src="宠物世界网站素材/img/p4.jpg" alt="宠物图片4">
+            </div>
+            <div class="slider-item">
+                <img src="宠物世界网站素材/img/p5.jpg" alt="宠物图片5">
+            </div>
+        </div>
+        <button class="slider-btn prev-btn" id="prevBtn">&lt;</button>
+        <button class="slider-btn next-btn" id="nextBtn">&gt;</button>
+    </section>
+
+    <section class="pets-section">
+        <div class="pets-container">
+            <div class="pet-card">
+                <img src="宠物世界网站素材/img/o1.jpg" alt="宠物1">
+                <p>给只猫咪一只安静的抱抱</p>
+            </div>
+            <div class="pet-card">
+                <img src="宠物世界网站素材/img/o2.jpg" alt="宠物2">
+                <p>给只猫咪一只可爱的小狗</p>
+            </div>
+            <div class="pet-card">
+                <img src="宠物世界网站素材/img/o3.jpg" alt="宠物3">
+                <p>给只小猫看一下你在干嘛！</p>
+            </div>
+            <div class="pet-card">
+                <img src="宠物世界网站素材/img/o4.jpg" alt="宠物4">
+                <p>给只猫咪一只可爱的小可爱</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">网站地图</a>
+            <span>|</span>
+            <a href="#">联系客服</a>
+            <span>|</span>
+            <a href="#">版权声明</a>
+        </div>
+        <p>关于我们 | 网站地图 | 联系客服 | 版权声明</p>
+    </footer>
+
+    <script>
+        var sliderContainer = document.getElementById('sliderContainer');
+        var prevBtn = document.getElementById('prevBtn');
+        var nextBtn = document.getElementById('nextBtn');
+        var currentIndex = 0;
+        var totalSlides = 5;
+
+        function showSlide(index) {
+            if (index < 0) {
+                currentIndex = totalSlides - 1;
+            } else if (index >= totalSlides) {
+                currentIndex = 0;
+            } else {
+                currentIndex = index;
+            }
+            var offset = -currentIndex * 100;
+            sliderContainer.style.transform = 'translateX(' + offset + '%)';
+        }
+
+        prevBtn.addEventListener('click', function() {
+            showSlide(currentIndex - 1);
+        });
+
+        nextBtn.addEventListener('click', function() {
+            showSlide(currentIndex + 1);
+        });
+
+        setInterval(function() {
+            showSlide(currentIndex + 1);
+        }, 3000);
+    </script>
+</body>
+</html>

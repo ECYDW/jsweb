@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript期末综合项目</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-top {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 8px 0;
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .header-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            padding: 12px 0;
+        }
+
+        .logo span {
+            color: #ffd700;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            height: 60px;
+        }
+
+        .nav > li {
+            position: relative;
+        }
+
+        .nav > li > a {
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            height: 60px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav > li > a:hover,
+        .nav > li > a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-bottom-color: #ffd700;
+        }
+
+        .nav > li > a .arrow {
+            margin-left: 8px;
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .nav > li:hover > a .arrow {
+            transform: rotate(180deg);
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            min-width: 220px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            animation: submenuFadeIn 0.3s ease;
+        }
+
+        @keyframes submenuFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .submenu li {
+            list-style: none;
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            font-size: 14px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .submenu li a:hover {
+            background-color: #f8f9fa;
+            color: #667eea;
+            border-left-color: #667eea;
+            padding-left: 25px;
+        }
+
+        .submenu li a .icon {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav > li:hover .submenu {
+            display: block;
+        }
+
+        .banner-section {
+            margin-top: 88px;
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .banner-slider {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .banner-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .banner-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner-content {
+            text-align: center;
+            color: #fff;
+            max-width: 800px;
+            padding: 40px;
+        }
+
+        .banner-content h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .banner-content p {
+            font-size: 22px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .banner-btn {
+            display: inline-block;
+            padding: 15px 45px;
+            background-color: #ffd700;
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s;
+            animation: fadeInUp 0.8s ease 0.4s both;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .banner-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .banner-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+        }
+
+        .banner-nav:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .banner-prev {
+            left: 30px;
+        }
+
+        .banner-next {
+            right: 30px;
+        }
+
+        .banner-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+        }
+
+        .banner-dot {
+            width: 14px;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .banner-dot.active {
+            background: #ffd700;
+            width: 40px;
+            border-radius: 10px;
+        }
+
+        .section {
+            padding: 80px 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+
+        .tabs-section {
+            background-color: #fff;
+        }
+
+        .tabs-container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .tabs-header {
+            display: flex;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 0 20px;
+        }
+
+        .tab-btn {
+            padding: 20px 40px;
+            font-size: 16px;
+            color: #666;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            color: #667eea;
+        }
+
+        .tab-btn.active::after {
+            width: 80%;
+        }
+
+        .tabs-body {
+            padding: 40px;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border: 1px solid #eee;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .project-card:hover .project-img img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay span {
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 25px;
+            border: 2px solid #fff;
+            border-radius: 25px;
+        }
+
+        .project-info {
+            padding: 25px;
+        }
+
+        .project-info h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .project-info p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-size: 12px;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+
+        .door-section {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            padding: 80px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .door-section .section-title,
+        .door-section .section-subtitle {
+            color: #fff;
+        }
+
+        .door-section .section-title::after {
+            background: #fff;
+        }
+
+        .door-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            height: 450px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .door-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .door-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .door-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            z-index: 5;
+            width: 85%;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .door-content h3 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .door-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .door-panel {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid #ffd700;
+        }
+
+        .door-panel:hover {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+        }
+
+        .door-panel-left {
+            left: 0;
+            border-radius: 12px 0 0 12px;
+            border-right: 2px solid #ffd700;
+        }
+
+        .door-panel-right {
+            right: 0;
+            border-radius: 0 12px 12px 0;
+            border-left: 2px solid #ffd700;
+        }
+
+        .door-icon {
+            font-size: 50px;
+            color: #ffd700;
+            transition: transform 0.3s;
+        }
+
+        .door-panel-left:hover .door-icon {
+            transform: translateX(-15px);
+        }
+
+        .door-panel-right:hover .door-icon {
+            transform: translateX(15px);
+        }
+
+        .door-container.open .door-panel-left {
+            transform: translateX(-100%);
+        }
+
+        .door-container.open .door-panel-right {
+            transform: translateX(100%);
+        }
+
+        .video-section {
+            background-color: #fff;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .video-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eee;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 220px;
+            background: #000;
+            position: relative;
+        }
+
+        .video-player video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-info h4 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .video-info p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .about-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.9;
+            margin-bottom: 25px;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 100%;
+            height: 100%;
+            border: 4px solid #667eea;
+            border-radius: 15px;
+            z-index: -1;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 60px 30px 30px;
+            color: #fff;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-about h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+
+        .footer-about p {
+            font-size: 14px;
+            color: #bdc3c7;
+            line-height: 1.8;
+        }
+
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #ffd700;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #bdc3c7;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: #ffd700;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            font-size: 13px;
+            color: #95a5a6;
+        }
+
+        @media (max-width: 1024px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .banner-content h1 {
+                font-size: 36px;
+            }
+
+            .banner-content p {
+                font-size: 18px;
+            }
+
+            .banner-nav {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+
+            .tab-btn {
+                padding: 15px 20px;
+                font-size: 14px;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-col h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            欢迎访问 My JavaScript 期末综合项目展示平台
+        </div>
+        <div class="header-main">
+            <a href="#" class="logo">综合<span>项目</span></a>
+            <ul class="nav">
+                <li><a href="#home" class="active">首页</a></li>
+                <li>
+                    <a href="#projects">网站项目 <span class="arrow">▼</span></a>
+                    <ul class="submenu">
+                        <li><a href="../宠物世界网站/宠物世界网站/cwsj.html" target="_blank"><span class="icon">🐾</span>宠物世界网站</a></li>
+                        <li><a href="../环保网站主页/环保网站主页/环保网站素材/环保.html" target="_blank"><span class="icon">🌿</span>环保网站主页</a></li>
+                        <li><a href="../商城首页/商城首页/wy.html" target="_blank"><span class="icon">🛒</span>商城首页</a></li>
+                        <li><a href="../4-3学校网站/4-3学校网站/index.html" target="_blank"><span class="icon">🎓</span>学校网站</a></li>
+                        <li><a href="../5-2旅游网页/5-2旅游网页/index.html" target="_blank"><span class="icon">✈️</span>旅游网页</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#interactive">交互项目 <span class="arrow">▼</span></a>
+                    <ul class="submenu">
+                        <li><a href="../4-1视频和音乐展示网/4-1视频和音乐展示网/img/index.html" target="_blank"><span class="icon">🎬</span>视频音乐展示</a></li>
+                        <li><a href="../5-1照片墙/5-1照片墙/index.html" target="_blank"><span class="icon">📷</span>照片墙</a></li>
+                        <li><a href="../5-5 3D相册环/5-5 3D相册环/index.html" target="_blank"><span class="icon">🔄</span>3D相册环</a></li>
+                        <li><a href="../暴怒小猪/暴怒小猪/index.html" target="_blank"><span class="icon">🎮</span>暴怒小猪游戏</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#training">实训项目 <span class="arrow">▼</span></a>
+                    <ul class="submenu">
+                        <li><a href="../HTML实训(1)/HTML实训/首页.html" target="_blank"><span class="icon">🏠</span>HTML实训首页</a></li>
+                        <li><a href="../HTML实训(1)/HTML实训/新闻中心.html" target="_blank"><span class="icon">📰</span>新闻中心</a></li>
+                        <li><a href="../HTML实训(1)/HTML实训/行业新闻.html" target="_blank"><span class="icon">📊</span>行业新闻</a></li>
+                        <li><a href="../HTML实训(1)/HTML实训/质量安全.html" target="_blank"><span class="icon">✓</span>质量安全</a></li>
+                        <li><a href="../4-2员工入职信息登记表/4-2员工入职信息登记表/index.html" target="_blank"><span class="icon">📝</span>员工信息登记表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#video">视频展示</a>
+                </li>
+                <li>
+                    <a href="#about">关于个人</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="banner-section" id="home">
+        <div class="banner-slider" id="bannerSlider">
+            <div class="banner-slide">
+                <img src="../环保网站主页/环保网站主页/环保网站素材/img/bn2.jpg" alt="环保主题">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <h1>守护绿色家园</h1>
+                        <p>环保网站项目 - 传播绿色理念，共建美好未来</p>
+                        <a href="../环保网站主页/环保网站主页/环保网站素材/环保.html" target="_blank" class="banner-btn">了解更多</a>
+                    </div>
+                </div>
+            </div>
+            <div class="banner-slide">
+                <img src="../宠物世界网站/宠物世界网站/宠物世界网站素材/img/p5.jpg" alt="宠物世界">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <h1>萌宠天地</h1>
+                        <p>宠物世界网站 - 展示可爱宠物，分享快乐时光</p>
+                        <a href="../宠物世界网站/cwsj.html" target="_blank" class="banner-btn">了解更多</a>
+                    </div>
+                </div>
+            </div>
+            <div class="banner-slide">
+                <img src="../5-2旅游网页/5-2旅游网页/img/bann.jpg" alt="旅游主题">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <h1>畅游世界</h1>
+                        <p>旅游网页项目 - 发现美丽风景，体验精彩旅程</p>
+                        <a href="../5-2旅游网页/5-2旅游网页/index.html" target="_blank" class="banner-btn">了解更多</a>
+                    </div>
+                </div>
+            </div>
+            <div class="banner-slide">
+                <img src="../4-3学校网站/4-3学校网站/学校网站素材/img/s1.jpg" alt="学校网站">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <h1>知识殿堂</h1>
+                        <p>学校网站项目 - 展示校园风采，传播教育理念</p>
+                        <a href="../4-3学校网站/index.html" target="_blank" class="banner-btn">了解更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="banner-nav banner-prev" id="bannerPrev">❮</button>
+        <button class="banner-nav banner-next" id="bannerNext">❯</button>
+        <div class="banner-dots" id="bannerDots">
+            <div class="banner-dot active" data-index="0"></div>
+            <div class="banner-dot" data-index="1"></div>
+            <div class="banner-dot" data-index="2"></div>
+            <div class="banner-dot" data-index="3"></div>
+        </div>
+    </section>
+
+    <section class="section tabs-section" id="projects">
+        <h2 class="section-title">项目展示</h2>
+        <p class="section-subtitle">汇集多个精彩项目，展示前端开发技术</p>
+        <div class="tabs-container">
+            <div class="tabs-header">
+                <button class="tab-btn active" data-tab="all">全部项目</button>
+                <button class="tab-btn" data-tab="website">网站项目</button>
+                <button class="tab-btn" data-tab="interactive">交互项目</button>
+                <button class="tab-btn" data-tab="training">实训项目</button>
+            </div>
+            <div class="tabs-body">
+                <div class="tab-panel active" id="all">
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../宠物世界网站/宠物世界网站/宠物世界网站素材/img/p5.jpg" alt="宠物世界">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>宠物世界网站</h3>
+                                <p>展示各类宠物信息，包含轮播图、宠物卡片展示等功能，界面美观大方。</p>
+                                <span class="project-tag">网站项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../环保网站素材/环保网站素材/img/logo.jpg" alt="环保网站">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>环保网站主页</h3>
+                                <p>环保主题网站，包含轮播图、选项卡功能和统计数据展示，倡导绿色生活。</p>
+                                <span class="project-tag">网站项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../商城首页/商城首页/商城首页素材image/p4.png" alt="商城首页">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>商城首页</h3>
+                                <p>电商商城首页，包含分类导航、商品展示等功能，体验流畅的购物体验。</p>
+                                <span class="project-tag">网站项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../4-3学校网站/4-3学校网站/学校网站素材/img/s1.jpg" alt="学校网站">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>学校网站</h3>
+                                <p>学校官网展示，包含学校介绍、专业展示等内容，信息丰富全面。</p>
+                                <span class="project-tag">网站项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../5-2旅游网页/5-2旅游网页/img/l1.jpg" alt="旅游网页">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>旅游网页</h3>
+                                <p>旅游景点展示网页，包含景点图片和介绍，带你领略各地风光。</p>
+                                <span class="project-tag">网站项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../5-1照片墙/5-1照片墙/img/p1.jpg" alt="照片墙">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>照片墙</h3>
+                                <p>交互式照片墙，支持照片展示和动画效果，展示精美摄影作品。</p>
+                                <span class="project-tag">交互项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../5-5 3D相册环/5-5 3D相册环/环形旋转素材/img/v1.jpg" alt="3D相册">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>3D相册环</h3>
+                                <p>3D环形相册展示，支持旋转查看效果，带来沉浸式体验。</p>
+                                <span class="project-tag">交互项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../4-1视频和音乐展示网/4-1视频和音乐展示网/img/hh.jpg" alt="视频音乐">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>视频音乐展示</h3>
+                                <p>音视频播放器，支持多种格式媒体播放，功能完善。</p>
+                                <span class="project-tag">交互项目</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-panel" id="website">
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../宠物世界网站/宠物世界网站/宠物世界网站素材/img/p5.jpg" alt="宠物世界">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>宠物世界网站</h3>
+                                <p>展示各类宠物信息，包含轮播图、宠物卡片展示等功能。</p>
+                                <span class="project-tag">网站项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../环保网站主页/环保网站主页/环保网站素材/img/logo.jpg" alt="环保网站">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>环保网站主页</h3>
+                                <p>环保主题网站，包含轮播图、选项卡功能等。</p>
+                                <span class="project-tag">网站项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../商城首页/商城首页/商城首页素材image/s1.jpg" alt="商城首页">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>商城首页</h3>
+                                <p>电商商城首页，包含分类导航、商品展示等功能。</p>
+                                <span class="project-tag">网站项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../4-3学校网站/4-3学校网站/学校网站素材/img/s1.jpg" alt="学校网站">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>学校网站</h3>
+                                <p>学校官网展示，包含学校介绍、专业展示等内容。</p>
+                                <span class="project-tag">网站项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../5-2旅游网页/5-2旅游网页/img/l1.jpg" alt="旅游网页">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>旅游网页</h3>
+                                <p>旅游景点展示网页，包含景点图片和介绍。</p>
+                                <span class="project-tag">网站项目</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-panel" id="interactive">
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../5-1照片墙/5-1照片墙/img/p1.jpg" alt="照片墙">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>照片墙</h3>
+                                <p>交互式照片墙，支持照片展示和动画效果。</p>
+                                <span class="project-tag">交互项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../5-5 3D相册环/5-5 3D相册环/环形旋转素材/img/v1.jpg" alt="3D相册">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>3D相册环</h3>
+                                <p>3D环形相册展示，支持旋转查看效果。</p>
+                                <span class="project-tag">交互项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../4-1视频和音乐展示网/4-1视频和音乐展示网/img/hh.jpg" alt="视频音乐">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>视频音乐展示</h3>
+                                <p>音视频播放器，支持多种格式媒体播放。</p>
+                                <span class="project-tag">交互项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../宠物世界网站/宠物世界网站/宠物世界网站素材/img/pig.png" alt="暴怒小猪">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>暴怒小猪游戏</h3>
+                                <p>趣味小游戏，展示JavaScript交互能力。</p>
+                                <span class="project-tag">交互项目</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-panel" id="training">
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../HTML实训(1)/HTML实训/img/首页.jpg" alt="实训首页">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>HTML实训首页</h3>
+                                <p>企业官网首页，展示公司信息和业务。</p>
+                                <span class="project-tag">实训项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../HTML实训(1)/HTML实训/img/新闻中心2.jpg" alt="新闻中心">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>新闻中心</h3>
+                                <p>企业新闻资讯展示页面。</p>
+                                <span class="project-tag">实训项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../HTML实训(1)/HTML实训/img/新1.png" alt="行业新闻">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>行业新闻</h3>
+                                <p>行业动态和新闻资讯展示。</p>
+                                <span class="project-tag">实训项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../HTML实训(1)/HTML实训/img/公司.png" alt="质量安全">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>质量安全</h3>
+                                <p>企业质量安全和资质展示。</p>
+                                <span class="project-tag">实训项目</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-img">
+                                <img src="../HTML实训(1)/HTML实训/img/4.jpg" alt="信息登记">
+                                <div class="project-overlay"><span>查看项目</span></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>员工入职信息登记表</h3>
+                                <p>表单设计，员工信息录入功能。</p>
+                                <span class="project-tag">实训项目</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="door-section" id="interactive">
+        <h2 class="section-title">滑动门特效</h2>
+        <p class="section-subtitle">点击两侧门板打开查看更多精彩内容</p>
+        <div class="door-container" id="doorContainer">
+            <div class="door-bg">
+                <img src="../环保网站主页/环保网站主页/环保网站素材/img/bg.jpg" alt="门后内容">
+            </div>
+            <div class="door-content">
+                <h3>JavaScript 交互特效展示</h3>
+                <p>这里展示了滑动门的JavaScript交互效果，点击两侧的门板即可打开查看背后的内容。滑动门效果常用于图片画廊、产品展示等场景，带来独特的视觉体验。</p>
+            </div>
+            <div class="door-panel door-panel-left" id="doorLeft">
+                <span class="door-icon">◀</span>
+            </div>
+            <div class="door-panel door-panel-right" id="doorRight">
+                <span class="door-icon">▶</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section video-section" id="video">
+        <h2 class="section-title">视频展示</h2>
+        <p class="section-subtitle">精彩视频内容，带你领略多样世界</p>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-player">
+                    <video controls poster="../宠物世界网站/宠物世界网站/宠物世界网站素材/img/p1.jpg">
+                        <source src="../4-1视频和音乐展示网/4-1视频和音乐展示网/img/video/cat.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h4>可爱猫咪视频</h4>
+                    <p>展示可爱猫咪的日常片段，萌化你的心</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-player">
+                    <video controls poster="../4-1视频和音乐展示网/4-1视频和音乐展示网/img/js.png">
+                        <source src="../4-1视频和音乐展示网/4-1视频和音乐展示网/img/video/js.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h4>我的讲解视频</h4>
+                    <p>展示我的项目讲解，分享我的学习经历</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-player">
+                    <video controls poster="../4-1视频和音乐展示网/4-1视频和音乐展示网/img/mg.png">
+                        <source src="../4-1视频和音乐展示网/4-1视频和音乐展示网/img/video/mg.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h4>精彩视频片段</h4>
+                    <p>精彩的视频内容展示，记录美好瞬间</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section about-section" id="about">
+        <h2 class="section-title">关于个人</h2>
+        <p class="section-subtitle">了解项目背后的故事</p>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>JavaScript 期末综合项目</h3>
+                <p>本项目汇集了我的多个前端开发案例，包括网站开发、交互效果、实训项目等多个类别。通过整合工作区中的所有项目，展示了HTML5、CSS3和JavaScript的综合应用能力。</p>
+                <p>项目包含了丰富的交互效果，如轮播图、选项卡、滑动门等常用组件，以及视频播放、照片展示等功能。按期末考核要求进行开发，确保项目符合所有技术规范和功能需求。</p>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🎨</div>
+                        <span class="feature-text">精美UI设计</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <span class="feature-text">流畅交互</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <span class="feature-text">响应式布局</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔧</div>
+                        <span class="feature-text">模块化开发</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="../环保网站主页/环保网站主页/环保网站素材/img/bg.jpg" alt="项目展示">
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>期末综合项目平台</h3>
+                <p>汇集我的多个前端开发项目，展示网页设计与交互技术的完美结合。严格按照期末考核要求进行开发，确保项目符合所有技术规范和功能需求。</p>
+            </div>
+            <div class="footer-col">
+                <h4>项目分类</h4>
+                <ul>
+                    <li><a href="#projects">全部项目</a></li>
+                    <li><a href="#projects">网站项目</a></li>
+                    <li><a href="#projects">交互项目</a></li>
+                    <li><a href="#projects">实训项目</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>技术栈</h4>
+                <ul>
+                    <li><a href="#">HTML5</a></li>
+                    <li><a href="#">CSS3</a></li>
+                    <li><a href="#">JavaScript</a></li>
+
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>联系方式</h4>
+                <ul>
+                    <li><a href="#">邮箱：xxx@xx.com</a></li>
+                    <li><a href="#">电话：xxx-xxxxxxx</a></li>
+                    <li><a href="#">地址：XX省XX市</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 JavaScript 期末综合项目 | 项目展示平台</p>
+        </div>
+    </footer>
+
+    <script>
+        // 轮播图功能
+        (function() {
+            const slider = document.getElementById('bannerSlider');
+            const prevBtn = document.getElementById('bannerPrev');
+            const nextBtn = document.getElementById('bannerNext');
+            const dots = document.querySelectorAll('.banner-dot');
+            let currentIndex = 0;
+            const totalSlides = 4;
+            let autoPlayInterval;
+
+            function showSlide(index) {
+                currentIndex = index;
+                if (currentIndex < 0) currentIndex = totalSlides - 1;
+                if (currentIndex >= totalSlides) currentIndex = 0;
+                slider.style.transform = 'translateX(-' + currentIndex * 100 + '%)';
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function nextSlide() {
+                showSlide(currentIndex + 1);
+            }
+
+            function prevSlide() {
+                showSlide(currentIndex - 1);
+            }
+
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(nextSlide, 5000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                stopAutoPlay();
+                prevSlide();
+                startAutoPlay();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                stopAutoPlay();
+                nextSlide();
+                startAutoPlay();
+            });
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    stopAutoPlay();
+                    showSlide(parseInt(dot.dataset.index));
+                    startAutoPlay();
+                });
+            });
+
+            startAutoPlay();
+        })();
+
+        // 选项卡功能
+        (function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabPanels.forEach(p => p.classList.remove('active'));
+                    btn.classList.add('active');
+                    const targetId = btn.dataset.tab;
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        })();
+
+        // 滑动门功能
+        (function() {
+            const container = document.getElementById('doorContainer');
+            const leftDoor = document.getElementById('doorLeft');
+            const rightDoor = document.getElementById('doorRight');
+
+            function toggleDoor() {
+                container.classList.toggle('open');
+            }
+
+            leftDoor.addEventListener('click', toggleDoor);
+            rightDoor.addEventListener('click', toggleDoor);
+        })();
+
+        // 平滑滚动
+        (function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        })();
+
+        // 导航高亮
+        (function() {
+            const navLinks = document.querySelectorAll('.nav > li > a');
+            const sections = document.querySelectorAll('section[id]');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

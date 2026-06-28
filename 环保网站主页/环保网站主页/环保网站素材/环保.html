@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>环保网站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .header {
+            background-color: transparent;
+            padding: 8px 0;
+            position: absolute;
+            top: 45px;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2ecc71;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #2ecc71;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav li {
+            margin-left: 25px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #2ecc71;
+            font-size: 15px;
+            transition: color 0.3s;
+            padding-bottom: 3px;
+        }
+
+        .nav a:hover, .nav a.active {
+            color: #27ae60;
+            border-bottom: 2px solid #2ecc71;
+        }
+
+        .slogan {
+            text-align: center;
+            color: #2ecc71;
+            font-size: 18px;
+            padding: 12px 0;
+            background-color: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 101;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-slide {
+            min-width: 100%;
+            height: 500px;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            z-index: 10;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 12px 35px;
+            background-color: #2ecc71;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .hero-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .hero-btn-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.6);
+            border: none;
+            color: #333;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 10;
+        }
+
+        .hero-btn-nav:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 20px;
+        }
+
+        .services-section {
+            padding: 50px 0;
+            background-color: #fff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .section-title img {
+            vertical-align: middle;
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+        }
+
+        .tabs-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab {
+            padding: 10px 35px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            background: none;
+            border: none;
+            margin: 0 10px;
+        }
+
+        .tab.active {
+            color: #2ecc71;
+            border-bottom-color: #2ecc71;
+        }
+
+        .tab-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tab-item {
+            width: 100%;
+            display: none;
+        }
+
+        .tab-item.active {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .service-card {
+            width: 22%;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .service-card p {
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .stats-section {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .stats-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .stats-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .stats-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            background-color: rgba(255, 255, 255, 0.85);
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 30px;
+            border-radius: 10px;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-item .number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2ecc71;
+        }
+
+        .stat-item p {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #666;
+        }
+
+        .about-section {
+            padding: 50px 0;
+            background-color: #fff;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            font-size: 14px;
+            color: #666;
+            line-height: 2;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .about-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #2ecc71;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .about-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .activities-section {
+            padding: 50px 0;
+            background: linear-gradient(to bottom, #e8f5e9, #c8e6c9);
+        }
+
+        .activities-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .activity-card {
+            width: 30%;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .activity-card .circle-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 4px solid #2ecc71;
+        }
+
+        .activity-card .circle-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .activity-card h4 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .activity-card p {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .footer {
+            background-color: #2d5a3d;
+            padding: 30px 0;
+            color: #fff;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .footer-left {
+            width: 45%;
+        }
+
+        .footer-left h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .footer-left p {
+            font-size: 13px;
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-col {
+            text-align: center;
+        }
+
+        .footer-col h4 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .footer-col .icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-col .icon img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .footer-col p {
+            font-size: 12px;
+            color: #ccc;
+            margin-bottom: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 11px;
+            color: #999;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            .service-card {
+                width: 45%;
+            }
+
+            .stats-row {
+                gap: 30px;
+            }
+
+            .about-container {
+                flex-direction: column;
+            }
+
+            .activities-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .activity-card {
+                width: 85%;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-left {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .footer-right {
+                justify-content: center;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slogan">爱护环境，行动从你我他开始</div>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">绿色<span>行动</span></a>
+            <ul class="nav">
+                <li><a href="#" class="active">首页</a></li>
+                <li><a href="#">空气净化</a></li>
+                <li><a href="#">园林绿化</a></li>
+                <li><a href="#">服务收费</a></li>
+                <li><a href="#">动态新闻</a></li>
+                <li><a href="#">联系我们</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-slider" id="heroSlider">
+            <div class="hero-slide">
+                <img src="img/bn1.jpg" alt="环保背景1">
+            </div>
+            <div class="hero-slide">
+                <img src="img/bn2.jpg" alt="环保背景2">
+            </div>
+            <div class="hero-slide">
+                <img src="img/tr.jpg" alt="环保背景3">
+            </div>
+        </div>
+        <button class="hero-btn-nav prev-btn" id="prevHeroBtn">&lt;</button>
+        <button class="hero-btn-nav next-btn" id="nextHeroBtn">&gt;</button>
+        <div class="hero-content">
+            <h1>绿色时代 环保时代</h1>
+            <p>树木正在为净化空气而加班加点，请不要让绿色工厂倒闭</p>
+            <a href="#" class="hero-btn">VIEW MORE</a>
+        </div>
+    </section>
+
+    <section class="services-section">
+        <div class="section-title">
+            <img src="img/logo.jpg" alt="服务图标"> 服务介绍
+        </div>
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab active" data-tab="tab1">垃圾分类</button>
+                <button class="tab" data-tab="tab2">植树造林</button>
+                <button class="tab" data-tab="tab3">污水处理</button>
+            </div>
+            <div class="tab-content">
+                <div class="tab-item active" id="tab1">
+                    <div class="service-card">
+                        <img src="img/s1.jpg" alt="废旧轮胎">
+                        <p>废旧轮胎</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="img/s2.jpg" alt="废弃电池">
+                        <p>废弃电池</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="img/s3.jpg" alt="废旧回收">
+                        <p>废旧回收</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="img/s4.jpg" alt="垃圾回收">
+                        <p>垃圾回收</p>
+                    </div>
+                </div>
+                <div class="tab-item" id="tab2">
+                    <div class="service-card">
+                        <img src="img/ser1.jpg" alt="园林绿化">
+                        <p>园林绿化</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="img/ser2.jpg" alt="城市绿化">
+                        <p>城市绿化</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="img/ser3.jpg" alt="生态修复">
+                        <p>生态修复</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="img/ser4.jpg" alt="植被保护">
+                        <p>植被保护</p>
+                    </div>
+                </div>
+                <div class="tab-item" id="tab3">
+                    <div class="service-card">
+                        <img src="img/ser5.jpg" alt="生活污水">
+                        <p>生活污水</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="img/b1.jpg" alt="工业废水">
+                        <p>工业废水</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="img/b2.jpg" alt="污水处理">
+                        <p>污水处理</p>
+                    </div>
+                    <div class="service-card">
+                        <img src="img/b3.jpg" alt="水质净化">
+                        <p>水质净化</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-bg">
+            <img src="img/q1.jpg" alt="统计背景">
+        </div>
+        <div class="stats-content">
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="number">9882</div>
+                    <p>垃圾分类投放量</p>
+                </div>
+                <div class="stat-item">
+                    <div class="number">1995</div>
+                    <p>涉尘新市场</p>
+                </div>
+                <div class="stat-item">
+                    <div class="number">2006</div>
+                    <p>突破性发展</p>
+                </div>
+                <div class="stat-item">
+                    <div class="number">2203</div>
+                    <p>改造回收</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="section-title">
+            <img src="img/logo.jpg" alt="关于图标"> 关于我们
+        </div>
+        <div class="about-container">
+            <div class="about-image">
+                <img src="img/usi.jpg" alt="关于我们">
+            </div>
+            <div class="about-content">
+                <h3>一直秉承"哪里有'废'，我们去哪里改造"</h3>
+                <p>记忆中的小桥流水，记忆中的青山绿水和蓝天白云已经渐渐离我们远去。我们赖以生存的地球正在遭受着天灾的恶化，我们要做的就是给他们赖以生存支柱，我们不需要超级能力，不需要武器，作为一个地球人我们自己有必要以承担起自己最大的努力去保护我们的地球。一个甜美的微笑化作美丽的彩虹七色光芒让大地焕发出勃勃的朝气，我们不需要苦苦的祈祷用最神奇的力量……</p>
+                <a href="#" class="about-btn">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="activities-section">
+        <div class="section-title">
+            <img src="img/logo.jpg" alt="活动图标"> 志愿活动
+        </div>
+        <div class="activities-container">
+            <div class="activity-card">
+                <div class="circle-img">
+                    <img src="img/ser1.jpg" alt="生活污水处理">
+                </div>
+                <h4>生活污水处理工程</h4>
+                <p>成都市XX大学东区，位于成都郫都区，...</p>
+            </div>
+            <div class="activity-card">
+                <div class="circle-img">
+                    <img src="img/ser2.jpg" alt="化工污水处理">
+                </div>
+                <h4>化工污水处理工程</h4>
+                <p>本项目为某化工有限公司含磷废水...</p>
+            </div>
+            <div class="activity-card">
+                <div class="circle-img">
+                    <img src="img/ser3.jpg" alt="养鸭污水处理">
+                </div>
+                <h4>养鸭污水处理工程</h4>
+                <p>养殖污水集中养殖，粪便存积，污...</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <h3>绿色行动</h3>
+                <p>爱护环境，行动从你我他开始。让我们一起为地球的绿色未来而努力，共同创造美好的生态环境。</p>
+            </div>
+            <div class="footer-right">
+                <div class="footer-col">
+                    <h4>联系方式</h4>
+                    <p>xxx@xx.com</p>
+                    <p>028-xxxxxxx</p>
+                </div>
+                <div class="footer-col">
+                    <h4>联系地址</h4>
+                    <p>XX省XX市XX区XX路XX号</p>
+                    <p>联系电话：028-0000000</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>版权所有 | 网站维护 | 技术支持 | 友情链接</p>
+        </div>
+    </footer>
+
+    <script>
+        var heroSlider = document.getElementById('heroSlider');
+        var prevHeroBtn = document.getElementById('prevHeroBtn');
+        var nextHeroBtn = document.getElementById('nextHeroBtn');
+        var currentHeroIndex = 0;
+        var totalHeroSlides = 3;
+
+        function showHeroSlide(index) {
+            currentHeroIndex = index;
+            heroSlider.style.transform = 'translateX(-' + currentHeroIndex * 100 + '%)';
+        }
+
+        prevHeroBtn.addEventListener('click', function() {
+            var newIndex = (currentHeroIndex - 1 + totalHeroSlides) % totalHeroSlides;
+            showHeroSlide(newIndex);
+        });
+
+        nextHeroBtn.addEventListener('click', function() {
+            var newIndex = (currentHeroIndex + 1) % totalHeroSlides;
+            showHeroSlide(newIndex);
+        });
+
+        setInterval(function() {
+            var newIndex = (currentHeroIndex + 1) % totalHeroSlides;
+            showHeroSlide(newIndex);
+        }, 5000);
+
+        var tabs = document.querySelectorAll('.tab');
+        var tabItems = document.querySelectorAll('.tab-item');
+
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                tabs.forEach(function(t) {
+                    t.classList.remove('active');
+                });
+                tabItems.forEach(function(item) {
+                    item.classList.remove('active');
+                });
+                tab.classList.add('active');
+                var targetId = tab.getAttribute('data-tab');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

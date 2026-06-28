@@ -1,0 +1,128 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-family: "微软雅黑";
+    font-size: 14.7px;
+}
+
+.wrapper {
+    width: 600px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-weight: 500;
+    font-size: 28px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    background-color: #dedede;
+    border-bottom: 1px solid #d4d4d4;
+    border-top: 1px solid #d4d4d4;
+    color: #fff;
+    font-size: 16px;
+    margin: 12px;
+    padding: 0.3em 1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    background-color: #717f88;
+}
+
+fieldset {
+    background-color: #f1f1f1;
+    border: none;
+    margin-bottom: 12px;
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+ul {
+    background-color: #fff;
+    border: 1px solid #eaeaea;
+    list-style: none;
+    margin: 12px;
+    padding: 12px;
+}
+
+li {
+    margin: 0.5em 0;
+}
+
+label {
+    display: inline-block;
+    padding: 3px 6px;
+    text-align: right;
+    width: 150px;
+    vertical-align: top;
+}
+
+input,
+select,
+button {
+    font: inherit;
+}
+
+input {
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    text-indent: 3px;
+    outline: none;
+}
+
+.province {
+    height: 35px;
+    border-radius: 5px;
+}
+
+input[type=file] {
+    border: none;
+}
+
+.small {
+    width: 100px;
+}
+
+.medium {
+    width: 200px;
+}
+
+.large {
+    width: 200px;
+}
+
+textarea {
+    font: inherit;
+    width: 250px;
+}
+
+.instruction {
+    font-size: 12px;
+    padding-left: 167px;
+    font-size: italic;
+    color: #999;
+}
+
+.btn_sub {
+    text-align: center;
+}
+
+input::-webkit-input-placeholder {
+    color: #999;
+    font-weight: 100;
+}
+
+.create-profile {
+    background-color: #4caf50;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    margin: 12px;
+    padding: 8px;
+    height: 40px;
+}

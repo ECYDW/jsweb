@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>员工入职信息登记表</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1 align="center">员工入职信息登记表</h1>
+        <form action="" method="post" enctype="multipart/form-data"></form>
+        <!-- 账户区域 -->
+        <fieldset>
+            <h2 class="account">账户</h2>
+            <ul>
+                <li>
+                    <label for="username">用户名：</label>
+                    <input type="text" id="username" class="medium" required placeholder="请输入您的用户名" />
+                </li>
+                <li>
+                    <label for="password">入职密码</label>
+                    <input name="password" type="password" class="medium" id="password" placeholder="请输入入职密码" />
+                </li>
+                <li>
+                    <label for="repassword">再次输入密码：</label>
+                    <input type="repassword" type="password" class="medium" id="repassword" placeholder="请再次输入密码" />
+                </li>
+            </ul>
+        </fieldset>
+        <!-- 个人信息 -->
+        <fieldset>
+            <h2 class="person-info">个人信息</h2>
+            <ul>
+                <li>
+                    <label for="age">年龄：</label>
+                    <input type="number" id="age" class="medium" required placeholder="请输入您的年龄" />
+                </li>
+                <li>
+                    <label>性别：</label>
+                    <fieldset class="radios">
+                        <ul>
+                            <li>
+                                <input type="radio" id="gender-male" name="gender" value="male" checked />
+                                <label for="gender-male">男</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="gender-male" name="gender" value="female" />
+                                <label for="gender-male">女</label>
+                            </li>
+                        </ul>
+                    </fieldset>
+                <li>
+                    <label for="height">身高：</label>
+                    <input type="range" id="height" name="height" min="140" max="200" class="medium" />
+                </li>
+                <li>
+                    <label for="phone">联系方式：</label>
+                    <input type="tel" id="phone" name="tel" maxlength="11" class="medium" placeholder="请输入联系方式" />
+                </li>
+                <li>
+                    <label for="email">邮寄地址：</label>
+                    <input type="email" id="email" name="email" class="medium" placeholder="请输入邮箱" />
+                </li>
+            </ul>
+        </fieldset>
+        <!-- 地址信息 -->
+        <fieldset>
+            <h2 class="address">地址</h2>
+            <ul>
+                <li>
+                    <label for="street-address">街道地址：</label>
+                    <input type="text" id="street-address" class="large" name="street-address" placeholder="请输入地址" />
+                </li>
+                <li>
+                    <label for="province">省：</label>
+                    <select name="province" class="medium province" id="province">
+                        <option value="HB" selected>湖北省</option>
+                        <option value="GD">广东省</option>
+                        <option value="SC">四川</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="city">城市：</label>
+                    <input list="city" name="city" class="medium" placeholder="请输入户口所在城市">
+                    <datalist id="city">
+                        <option value="西安">
+                        <option value="咸阳">
+                        <option value="成都">
+                        <option value="重庆">
+                        <option value="沈阳">
+                    </datalist>
+                </li>
+                <li>
+                    <label for="zip-code">邮编：</label>
+                    <input type="text" name="zip-code" class="medium" id="zip-code" placeholder="请再次输入邮箱编码" />
+                </li>
+            </ul>
+        </fieldset>
+        <!-- 公共信息 -->
+        <fieldset>
+            <h2 class="public-profile">公共信息</h2>
+            <ul>
+                <li>
+                    <label for="picture">头像：</label>
+                    <input type="file" id="picture" name="picture" />
+                    <p class="instructions">最大700k.JPG,GIF,PNG.</p>
+                </li>
+                <li>
+                    <label for="web-site">主页：</label>
+                    <input type="url" id="web-site" name="web-site" class="large" placeholder="请输入已有的博客网站" />
+                    <p class="instructions">有主页或博客吗？在这里输入网址.</p>
+                </li>
+                <li>
+                    <label for="desc">自我描述：</label>
+                    <textarea name="desc" id="desc" cols="50" rows="8" placeholder="请输入自我描述"></textarea>
+                </li>
+            </ul>
+        </fieldset>
+        <!-- 邮件信息 -->
+        <fieldset>
+            <h2 class="email">邮件</h2>
+            <ul class="checkeboxes">
+                <li>
+                    <input type="checkbox" id="email-msg" name="email-signup" value="user-emails" />
+                    <label for="email-msg">愿意接收来自其他用户的信息</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="email-updates" name="email-signup" value="email-updates" />
+                    <label for="email-updates">愿意接收其他产品的优惠信息</label>
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset class="btn_sub">
+            <input type="submit" class="create-profile" value="信息确认" />
+            <input type="reset" class="reset-profile" value="重新录入">
+        </fieldset>
+    </div>
+</body>
+
+</html>
